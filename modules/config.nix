@@ -7,6 +7,7 @@
     user,
     flake,
     src,
+    nullable,
     ...
 }:
 
@@ -20,13 +21,12 @@ let
 in
 {
     mkConfig =
-        {
-            kestrel,
-            modules ? [ ],
-            specialArgs ? { },
-            hostname ? builtins.baseNameOf flake,
-            ...
-        }:
+        args@{ kestrel, ... }:
+        with nullable args {
+            modules = [ ];
+            specialArgs = { };
+            hostname = builtins.baseNameOf flake;
+        };
         {
             ${hostname} = inputs.nixpkgs.lib.nixosSystem {
                 inherit system;

@@ -1,11 +1,21 @@
-{
+args@{
     system,
     inputs,
     flake,
-    src ? "/etc/nixos",
-    user ? "",
     ...
 }:
+let
+    nullable =
+        args: defaults:
+        args
+        // builtins.mapAttrs (
+            k: v: if builtins.hasAttr k args && args.${k} != null then args.${k} else v
+        ) defaults;
+in
+with nullable args {
+    src = nullable args.src "/etc/nixos";
+    user = nullable args.user "";
+};
 
 let
     nixpkgs = inputs.nixpkgs;
@@ -46,6 +56,7 @@ let
             lib
             system
             hm
+            nullable
             ;
     };
 in
