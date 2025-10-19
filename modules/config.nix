@@ -2,7 +2,6 @@
     system,
     inputs,
     lib,
-    pkgs,
     hm,
     user,
     flake,
@@ -12,11 +11,15 @@
 }:
 
 let
+    pkgsConfig = {
+        allowUnfree = lib.mkForce true;
+    };
+
     importPkgs =
         p:
         import p {
             inherit system;
-            config = pkgs.config;
+            config = pkgsConfig;
         };
 in
 {
@@ -50,7 +53,7 @@ in
                     {
                         environment.variables.FLAKE_PATH = lib.mkDefault src;
                         networking.hostName = lib.mkForce hostname;
-                        nixpkgs.config = pkgs.config;
+                        nixpkgs.config = pkgsConfig;
                         nix.settings.experimental-features = [
                             "nix-command"
                             "flakes"

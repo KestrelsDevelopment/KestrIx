@@ -13,18 +13,15 @@ let
         ) defaults;
 in
 with nullable args {
-    src = nullable args.src "/etc/nixos";
-    user = nullable args.user "";
+    src = "/etc/nixos";
+    user = "";
 };
 
 let
-    nixpkgs = inputs.nixpkgs;
-    pkgs = import nixpkgs {
-        system = system;
-        config.allowUnfree = true;
+    hm = inputs.home-manager.lib.hm;
+    lib = inputs.nixpkgs.lib // {
+        inherit hm;
     };
-    lib = pkgs.lib;
-    hm = import (inputs.home-manager + "/modules/lib") { inherit lib; };
 
     importModule =
         m:
@@ -52,7 +49,6 @@ let
 
     exports = imports // {
         inherit
-            pkgs
             lib
             system
             hm

@@ -1,7 +1,6 @@
 {
     system,
     lib,
-    pkgs,
     ...
 }:
 
@@ -23,7 +22,7 @@ rec {
                 pinned = import src {
                     inherit system;
                     overlays = [ ];
-                    config = prev.config or pkgs.Config;
+                    config = prev.config or { allowUnfree = true; };
                 };
 
                 path = lib.splitString "." package; # list of path segments
