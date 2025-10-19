@@ -6,7 +6,7 @@
     hm,
     user,
     flake,
-    flakePath,
+    src,
     ...
 }:
 
@@ -48,7 +48,7 @@ in
                     inputs.home-manager.nixosModules.home-manager
                     ../options/options.nix
                     {
-                        environment.variables.FLAKE_PATH = lib.mkDefault flakePath;
+                        environment.variables.FLAKE_PATH = lib.mkDefault src;
                         networking.hostName = lib.mkForce hostname;
                         nixpkgs.config = pkgs.config;
                         nix.settings.experimental-features = [

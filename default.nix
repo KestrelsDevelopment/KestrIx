@@ -2,7 +2,7 @@
     system,
     inputs,
     flake,
-    flakePath ? "",
+    src ? "/etc/nixos",
     user ? "",
     ...
 }:
@@ -26,7 +26,7 @@ let
                     importModules
                     user
                     flake
-                    flakePath
+                    src
                     ;
             }
             // exports

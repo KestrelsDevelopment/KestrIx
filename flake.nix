@@ -17,8 +17,8 @@
                     system,
                     inputs,
                     flake,
-                    flakePath ? "",
-                    user ? "",
+                    src ? null,
+                    user ? null,
                     ...
                 }:
                 (import ./. {
@@ -26,7 +26,7 @@
                     inherit
                         system
                         flake
-                        flakePath
+                        src
                         user
                         ;
                 });
@@ -34,21 +34,35 @@
         {
             inherit lib;
 
-            lib_x86_64-linux =
+            mkConfig =
                 {
+                    system,
                     inputs,
                     flake,
-                    flakePath ? "",
-                    user ? "",
+                    src ? null,
+                    user ? null,
+                    modules ? null,
+                    specialargs ? null,
+                    hostname ? null,
                     ...
                 }:
-                lib {
-                    system = "x86_64-linux";
+                let
+                    kestrIx = lib {
+                        inherit
+                            system
+                            inputs
+                            flake
+                            src
+                            user
+                            ;
+                    };
+                in
+                kestrIx.config.mkConfig {
+                    kestrel = kestrIx;
                     inherit
-                        inputs
-                        flake
-                        flakePath
-                        user
+                        modules
+                        specialargs
+                        hostname
                         ;
                 };
         };
