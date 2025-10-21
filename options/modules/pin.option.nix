@@ -32,7 +32,7 @@ in
                         };
 
                         version = mkOption {
-                            type = types.nullOr lib.types.string;
+                            type = types.nullOr lib.types.str;
                             default = null;
                             example = "1.2.3";
                             description = ''
