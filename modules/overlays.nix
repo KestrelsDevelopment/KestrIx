@@ -9,6 +9,19 @@ let
         path: source: if path == [ ] then { } else lib.setAttrByPath path (lib.getAttrFromPath path source);
 in
 rec {
+    mkOverlayFromPkgs =
+        package: pkgs:
+        (
+            final: prev:
+            let
+                path = lib.splitString "." package; # list of path segments
+
+                existing = copyAttrByPath (lib.init path) prev;
+                updated = copyAttrByPath path pkgs;
+            in
+            lib.recursiveUpdate existing updated
+        );
+
     # package => revision => source => ( final => prev => {} )
     # creates an overlay that pins <package> from <source> to <revision>
     # example: mkOverlayFromSource "ytmdesktop" "d179d77c139e0a3f5c416477f7747e9d6b7ec315" "github:NixOS/nixpkgs"
@@ -24,13 +37,8 @@ rec {
                     overlays = [ ];
                     config = prev.config or { allowUnfree = true; };
                 };
-
-                path = lib.splitString "." package; # list of path segments
-
-                existing = copyAttrByPath (lib.init path) prev;
-                updated = copyAttrByPath path pinned;
             in
-            lib.recursiveUpdate existing updated
+            mkOverlayFromPkgs package pinned
         );
 
     # package => revision => (final => prev => {})
