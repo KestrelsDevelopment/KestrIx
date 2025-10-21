@@ -1,0 +1,30 @@
+{
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    "editor.detectIndentation": false,
+    "[nix]": {
+        "editor.tabSize": 4
+    },
+    "nix.enableLanguageServer": true,
+    "nix.serverPath": "nixd",
+    "nix.serverSettings": {
+        "nixd": {
+            "formatting": {
+                "command": [
+                    "nixfmt",
+                    "--indent=4"
+                ]
+            }
+        }
+    },
+    "nix.hiddenLanguageServerErrors": [
+        "textDocument/definition", // bug in nixd I think?
+        "textDocument/formatting", // nixd throws an error when trying to format invalid files
+    ],
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.expand": false,
+    "explorer.fileNesting.patterns": {
+        "*.nix": "${basename}.*.nix",
+        "*.zsh": "${basename}.*.zsh"
+    }
+}
