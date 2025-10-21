@@ -22,7 +22,25 @@ in
 {
     options.kestrIx = {
         packages = mkOption {
-            type = types.attrsOf (types.listOf types.package);
+            type = types.submodule (
+                { ... }:
+                {
+                    options = {
+                        default = mkOption {
+                            type = types.listOf types.package;
+                            default = [ ];
+                            example = "";
+                            description = "";
+                        };
+                        stable = mkOption {
+                            type = types.listOf types.package;
+                            default = [ ];
+                            example = "";
+                            description = "";
+                        };
+                    };
+                }
+            );
             default = { };
             example = literalExpression "";
             description = "";
