@@ -27,8 +27,19 @@
 let
     inherit (lib) filterAttrs mapAttrs;
 
+    pkgsFromBranch =
+        { revision, ... }:
+        if revision == "stable" then
+            pkgsStable
+        else if revision == "unstable" then
+            pkgsUnstable
+        else
+            pkgsMaster;
+
     mkOverlaysForRevs = pins: kestrel.overlays.mkOverlays (mapAttrs (k: v: v.revision) pins);
-    mkOverlaysForBranch = pins: lib.mapAttrsToList kestrel.overlays.mkOverlayFromPkgs pins;
+    mkOverlaysForBranch =
+        pins:
+        lib.mapAttrsToList kestrel.overlays.mkOverlayFromPkgs (mapAttrs (k: v: (pkgsFromBranch v)) pins);
 in
 {
     imports = [ ./pin.option.nix ];
@@ -44,17 +55,8 @@ in
             isBranch =
                 { revision, ... }: (revision == "stable") || (revision == "unstable") || (revision == "master");
 
-            pkgsFromBranch =
-                { revision, ... }:
-                if revision == "stable" then
-                    pkgsStable
-                else if revision == "unstable" then
-                    pkgsUnstable
-                else
-                    pkgsMaster;
-
             pinnedBySha = filterAttrs (k: v: isSha v) pinnedByRev;
-            pinnedToBranch = mapAttrs (k: v: (pkgsFromBranch v)) (filterAttrs (k: v: isBranch v) pinnedByRev);
+            pinnedToBranch = filterAttrs (k: v: isBranch v) pinnedByRev;
         in
         {
             nixpkgs.overlays = (mkOverlaysForRevs pinnedBySha) ++ (mkOverlaysForBranch pinnedToBranch);
