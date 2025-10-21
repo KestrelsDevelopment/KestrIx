@@ -27,24 +27,8 @@
 let
     inherit (lib) filterAttrs mapAttrs;
 
-    copyAttrByPath =
-        path: source: if path == [ ] then { } else lib.setAttrByPath path (lib.getAttrFromPath path source);
-
-    mkOverlayFrom =
-        package: source:
-        (
-            final: prev:
-            let
-                path = lib.splitString "." package; # list of path segments
-
-                existing = copyAttrByPath (lib.init path) prev;
-                updated = copyAttrByPath path source;
-            in
-            lib.recursiveUpdate existing updated
-        );
-
     mkOverlaysForRevs = pins: kestrel.overlays.mkOverlays (mapAttrs (k: v: v.revision) pins);
-    mkOverlaysForBranch = pins: lib.mapAttrsToList mkOverlayFrom pins;
+    mkOverlaysForBranch = pins: lib.mapAttrsToList kestrel.overlays.mkOverlayFromPkgs pins;
 in
 {
     imports = [ ./pin.option.nix ];
