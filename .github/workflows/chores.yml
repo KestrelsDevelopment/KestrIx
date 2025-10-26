@@ -1,0 +1,14 @@
+name: "Chores"
+
+on:
+    schedule:
+        - cron: "0 5 * * *"   # daily at 05:00 UTC
+    workflow_dispatch:   
+
+jobs: 
+    update-flake:
+        uses: KestrelsDevelopment/.github/.github/workflows/nix-update-flake.yml@main 
+        permissions:
+            contents: write
+        with:
+            flake-path: .
