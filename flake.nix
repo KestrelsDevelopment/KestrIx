@@ -34,6 +34,8 @@
         {
             inherit lib;
 
+            overlays = (import ./overlays/overlays.nix);
+
             mkConfig =
                 {
                     system,
