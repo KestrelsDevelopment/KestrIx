@@ -7,7 +7,7 @@ let
 
     srcArchive = super.fetchzip {
         url = "https://releases.gitbutler.com/releases/release/${version}-${revision}/linux/x86_64/GitButler_${version}_amd64.AppImage.tar.gz";
-        hash = "01marw05sp9p5z1kgi6ysnhnhcv9w5jx2qfjjznj54wcpfgxm0n9";
+        sha256 = "01marw05sp9p5z1kgi6ysnhnhcv9w5jx2qfjjznj54wcpfgxm0n9";
     };
 
     appImage = "${srcArchive}/GitButler_${version}_amd64.AppImage";
