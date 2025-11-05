@@ -10,6 +10,6 @@ on:
 
 jobs: 
     build:
-        uses: KestrelsDevelopment/.github/.github/workflows/nix-build.yml@main 
+        uses: KestrelsDevelopment/Workflows/.github/workflows/nix-build.yml@main 
     lint:
-        uses: KestrelsDevelopment/.github/.github/workflows/nix-lint.yml@main 
+        uses: KestrelsDevelopment/Workflows/.github/workflows/nix-lint.yml@main 
