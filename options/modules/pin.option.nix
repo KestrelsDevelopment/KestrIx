@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, ... }:
 
 let
     inherit (lib) mkOption types literalExpression;
@@ -31,15 +31,15 @@ in
                             '';
                         };
 
-                        version = mkOption {
-                            type = types.nullOr lib.types.str;
-                            default = null;
-                            example = "1.2.3";
-                            description = ''
-                                SemVer pin for the *package version* (e.g., "1.2.3").
-                                Mutually exclusive with `revision`.
-                            '';
-                        };
+                        # version = mkOption {
+                        #     type = types.nullOr lib.types.str;
+                        #     default = null;
+                        #     example = "1.2.3";
+                        #     description = ''
+                        #         SemVer pin for the *package version* (e.g., "1.2.3").
+                        #         Mutually exclusive with `revision`.
+                        #     '';
+                        # };
                     };
                 }
             )
@@ -50,8 +50,8 @@ in
     };
 
     # Validate: exactly one of revision/version must be set for each pin.
-    config.assertions = lib.mapAttrsToList (key: pin: {
-        assertion = (pin.revision != null) != (pin.version != null);
-        message = "kestrIx.pins.${key}: set exactly one of `revision` or `version`.";
-    }) config.kestrix.pins;
+    # config.assertions = lib.mapAttrsToList (key: pin: {
+    #     assertion = (pin.revision != null) != (pin.version != null);
+    #     message = "kestrIx.pins.${key}: set exactly one of `revision` or `version`.";
+    # }) config.kestrix.pins;
 }
