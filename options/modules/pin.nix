@@ -46,7 +46,7 @@ in
 
     config =
         let
-            allPins = config.kestrIx.pins;
+            allPins = config.kestrix.pins;
 
             pinnedByRev = filterAttrs (k: v: (v.revision ? null) != null) allPins;
             # pinnedToVersion = filterAttrs (k: v: (v.version ? null) != null) allPins;
