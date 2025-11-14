@@ -1,7 +1,7 @@
 {
     lib,
     config,
-    kestrix,
+    kestrel,
     pkgsStable,
     pkgsUnstable,
     pkgsMaster,
@@ -36,10 +36,10 @@ let
         else
             pkgsMaster;
 
-    mkOverlaysForRevs = pins: kestrix.overlays.mkOverlays (mapAttrs (k: v: v.revision) pins);
+    mkOverlaysForRevs = pins: kestrel.overlays.mkOverlays (mapAttrs (k: v: v.revision) pins);
     mkOverlaysForBranch =
         pins:
-        lib.mapAttrsToList kestrix.overlays.mkOverlayFromPkgs (mapAttrs (k: v: (pkgsFromBranch v)) pins);
+        lib.mapAttrsToList kestrel.overlays.mkOverlayFromPkgs (mapAttrs (k: v: (pkgsFromBranch v)) pins);
 in
 {
     imports = [ ./pin.option.nix ];

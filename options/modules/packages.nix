@@ -1,21 +1,11 @@
-{ ... }:
+{ config, lib, ... }:
 
 {
-    # example:
-    # kestrIx.packages = {
-    #     # packages from default pkgs
-    #     default = with pkgs; [
-    #         foo
-    #     ];
-
-    #     # packages pinned to "stable" pkgs
-    #     stable = with pkgs; [
-    #         bar
-    #     ];
-
-    #     # packages pinned to specific commit
-    #     "8eaee110344796db060382e15d3af0a9fc396e0e" = with pkgs; [
-    #         baz
-    #     ];
-    # };
+    config =
+        lib.mkIf config.kestrix.pkgs.allowInsecure {
+            nixpkgs.config.allowInsecurePredicate = lib.mkDefault (_: true);
+        }
+        // lib.mkIf config.kestrix.pkgs.allowUnfree {
+            nixpkgs.config.allowUnfree = lib.mkDefault true;
+        };
 }

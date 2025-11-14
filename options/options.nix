@@ -1,3 +1,5 @@
 {
-    imports = [ ./modules/packages.nix ];
+    imports = [
+        ./modules/pin.nix
+    ];
 }
