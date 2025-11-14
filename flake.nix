@@ -44,7 +44,7 @@
                     src ? null,
                     user ? null,
                     modules ? null,
-                    specialargs ? null,
+                    specialArgs ? null,
                     hostname ? null,
                     ...
                 }:
@@ -62,7 +62,7 @@
                 kestrix.config.mkConfig {
                     inherit
                         modules
-                        specialargs
+                        specialArgs
                         hostname
                         kestrix
                         ;
