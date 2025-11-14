@@ -65,9 +65,9 @@ in
 
                         nixpkgs.overlays = [
                             (self: super: {
-                                pkgsStable = importPkgs (inputs.nixpkgs-stable or inputs.nixpkgs) (prev.config or pkgsConfig);
-                                pkgsUnstable = importPkgs (inputs.nixpkgs-unstable or inputs.nixpkgs) (prev.config or pkgsConfig);
-                                pkgsMaster = importPkgs (inputs.nixpkgs-master or inputs.nixpkgs) (prev.config or pkgsConfig);
+                                pkgsStable = importPkgs (inputs.nixpkgs-stable or inputs.nixpkgs) (self.config or pkgsConfig);
+                                pkgsUnstable = importPkgs (inputs.nixpkgs-unstable or inputs.nixpkgs) (self.config or pkgsConfig);
+                                pkgsMaster = importPkgs (inputs.nixpkgs-master or inputs.nixpkgs) (self.config or pkgsConfig);
                             })
                         ];
                     }
