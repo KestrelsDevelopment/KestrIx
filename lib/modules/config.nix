@@ -46,8 +46,8 @@ in
                     (flake + "/hardware.nix")
                     (flake + "/state.nix")
                     inputs.home-manager.nixosModules.home-manager
-                    ../options/options.nix
-                    ../overlays/overlays.nix
+                    ../../options/options.nix
+                    ../../overlays/overlays.nix
                     {
                         environment.variables.FLAKE_PATH = lib.mkDefault src;
                         networking.hostName = lib.mkForce hostname;
