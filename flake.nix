@@ -2,9 +2,14 @@
     description = "KESTR/X Lib";
 
     inputs = {
-        nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+        nixpkgs.url = "git+https://github.com/NixOS/nixpkgs.git?shallow=1&ref=nixos-unstable";
+
+        nixpkgs-stable.url = "git+https://github.com/NixOS/nixpkgs.git?shallow=1&ref=nixos-25.05";
+        nixpkgs-unstable.url = "git+https://github.com/NixOS/nixpkgs.git?shallow=1&ref=nixos-unstable";
+        nixpkgs-master.url = "git+https://github.com/NixOS/nixpkgs.git?shallow=1&ref=master";
+
         home-manager = {
-            url = "github:nix-community/home-manager";
+            url = "git+https://github.com/nix-community/home-manager.git?shallow=1&ref=master";
             inputs.nixpkgs.follows = "nixpkgs";
         };
     };
