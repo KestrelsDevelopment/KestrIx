@@ -49,7 +49,7 @@
                     ...
                 }:
                 let
-                    kestrIx = lib {
+                    kestrix = lib {
                         inherit
                             system
                             inputs
@@ -59,12 +59,12 @@
                             ;
                     };
                 in
-                kestrIx.config.mkConfig {
-                    kestrel = kestrIx;
+                kestrix.config.mkConfig {
                     inherit
                         modules
                         specialargs
                         hostname
+                        kestrix
                         ;
                 };
         };

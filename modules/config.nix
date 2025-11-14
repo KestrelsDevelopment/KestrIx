@@ -24,25 +24,31 @@ let
 in
 {
     mkConfig =
-        args@{ kestrel, ... }:
+        args@{ kestrix, ... }:
         with nullable args {
             modules = [ ];
             specialArgs = { };
             hostname = builtins.baseNameOf flake;
         };
+        let
+            pkgsStable = importPkgs (inputs.nixpkgs-stable or inputs.nixpkgs);
+            pkgsUnstable = importPkgs (inputs.nixpkgs-unstable or inputs.nixpkgs);
+            pkgsMaster = importPkgs (inputs.nixpkgs-master or inputs.nixpkgs);
+        in
         {
             ${hostname} = inputs.nixpkgs.lib.nixosSystem {
                 inherit system;
                 specialArgs = specialArgs // {
                     inherit
                         inputs
-                        kestrel
+                        kestrix
                         lib
                         hm
+                        pkgsStable
+                        pkgsUnstable
+                        pkgsMaster
                         ;
-                    pkgsStable = importPkgs (inputs.nixpkgs-stable or inputs.nixpkgs);
-                    pkgsUnstable = importPkgs (inputs.nixpkgs-unstable or inputs.nixpkgs);
-                    pkgsMaster = importPkgs (inputs.nixpkgs-master or inputs.nixpkgs);
+                    kestrel = kestrix;
                 };
                 modules = modules ++ [
                     (flake + "/device.nix")
@@ -65,6 +71,14 @@ in
                             useUserPackages = lib.mkDefault true;
                             backupFileExtension = lib.mkDefault "backup";
                         };
+
+                        nixpkgs.overlays = [
+                            (self: super: {
+                                stable = pkgsStable;
+                                unstable = pkgsUnstable;
+                                master = pkgsMaster;
+                            })
+                        ];
                     }
                 ];
             };
