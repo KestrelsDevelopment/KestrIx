@@ -15,7 +15,7 @@ let
     ];
 in
 {
-    options.kestrIx.pins = mkOption {
+    options.kestrix.pins = mkOption {
         type = types.attrsOf (
             types.submodule (
                 { ... }:
@@ -53,5 +53,5 @@ in
     config.assertions = lib.mapAttrsToList (key: pin: {
         assertion = (pin.revision != null) != (pin.version != null);
         message = "kestrIx.pins.${key}: set exactly one of `revision` or `version`.";
-    }) config.kestrIx.pins;
+    }) config.kestrix.pins;
 }

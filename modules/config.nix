@@ -16,10 +16,9 @@ let
     };
 
     importPkgs =
-        p:
+        p: config:
         import p {
-            inherit system;
-            config = pkgsConfig;
+            inherit system config;
         };
 in
 {
@@ -30,11 +29,6 @@ in
             specialArgs = { };
             hostname = builtins.baseNameOf flake;
         };
-        let
-            pkgsStable = importPkgs (inputs.nixpkgs-stable or inputs.nixpkgs);
-            pkgsUnstable = importPkgs (inputs.nixpkgs-unstable or inputs.nixpkgs);
-            pkgsMaster = importPkgs (inputs.nixpkgs-master or inputs.nixpkgs);
-        in
         {
             ${hostname} = inputs.nixpkgs.lib.nixosSystem {
                 inherit system;
@@ -44,9 +38,6 @@ in
                         kestrix
                         lib
                         hm
-                        pkgsStable
-                        pkgsUnstable
-                        pkgsMaster
                         ;
                     kestrel = kestrix;
                 };
@@ -74,9 +65,9 @@ in
 
                         nixpkgs.overlays = [
                             (self: super: {
-                                stable = pkgsStable;
-                                unstable = pkgsUnstable;
-                                master = pkgsMaster;
+                                stable = importPkgs (inputs.nixpkgs-stable or inputs.nixpkgs) (prev.config or pkgsConfig);
+                                unstable = importPkgs (inputs.nixpkgs-unstable or inputs.nixpkgs) (prev.config or pkgsConfig);
+                                master = importPkgs (inputs.nixpkgs-master or inputs.nixpkgs) (prev.config or pkgsConfig);
                             })
                         ];
                     }
