@@ -21,7 +21,7 @@
                     user ? null,
                     ...
                 }:
-                (import ./. {
+                (import ./lib {
                     inputs = flakeInputs // inputs;
                     inherit
                         system
