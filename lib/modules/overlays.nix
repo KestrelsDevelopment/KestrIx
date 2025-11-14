@@ -38,7 +38,7 @@ rec {
                     config = prev.config or { allowUnfree = true; };
                 };
             in
-            mkOverlayFromPkgs package pinned
+            mkOverlayFromPkgs package pinned final prev
         );
 
     # package => revision => (final => prev => {})
