@@ -9,7 +9,5 @@ on:
         types: [completed]
 
 jobs: 
-    build:
-        uses: KestrelsDevelopment/Workflows/.github/workflows/nix-build.yml@main 
-    lint:
-        uses: KestrelsDevelopment/Workflows/.github/workflows/nix-lint.yml@main 
+    nix-ci:
+        uses: KestrelsDevelopment/Workflows/.github/workflows/nix-ci.yml@main 
