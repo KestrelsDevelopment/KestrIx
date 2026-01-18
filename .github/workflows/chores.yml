@@ -10,5 +10,3 @@ jobs:
         uses: KestrelsDevelopment/Workflows/.github/workflows/nix-update-flake.yml@main 
         permissions:
             contents: write
-        with:
-            flake-path: .
