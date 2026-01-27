@@ -6,7 +6,8 @@
 
 let
     copyAttrByPath =
-        path: source: if path == [ ] then { } else lib.setAttrByPath path (lib.getAttrFromPath path source);
+        attrPath: source:
+        if attrPath == [ ] then { } else lib.setAttrByPath attrPath (lib.getAttrFromPath attrPath source);
 in
 rec {
     mkOverlayFromPkgs =
@@ -14,10 +15,10 @@ rec {
         (
             final: prev:
             let
-                path = lib.splitString "." package; # list of path segments
+                pathSegments = lib.splitString "." package; # list of path segments
 
-                existing = copyAttrByPath (lib.init path) prev;
-                updated = copyAttrByPath path pkgs;
+                existing = copyAttrByPath (lib.init pathSegments) prev;
+                updated = copyAttrByPath pathSegments pkgs;
             in
             lib.recursiveUpdate existing updated
         );
@@ -35,7 +36,7 @@ rec {
                 pinned = import src {
                     inherit system;
                     overlays = [ ];
-                    config = prev.config or { allowUnfree = true; };
+                    config = prev.config.nixpkgs.config or { allowUnfree = true; };
                 };
             in
             mkOverlayFromPkgs package pinned final prev

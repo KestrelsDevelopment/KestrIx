@@ -27,7 +27,7 @@ in
         with nullable args {
             modules = [ ];
             specialArgs = { };
-            hostname = builtins.baseNameOf flake;
+            hostname = baseNameOf flake;
         };
         {
             ${hostname} = inputs.nixpkgs.lib.nixosSystem {
@@ -64,11 +64,17 @@ in
                         };
 
                         nixpkgs.overlays = [
-                            (self: super: {
-                                pkgsStable = importPkgs (inputs.nixpkgs-stable or inputs.nixpkgs) (self.config or pkgsConfig);
-                                pkgsUnstable = importPkgs (inputs.nixpkgs-unstable or inputs.nixpkgs) (self.config or pkgsConfig);
-                                pkgsMaster = importPkgs (inputs.nixpkgs-master or inputs.nixpkgs) (self.config or pkgsConfig);
-                            })
+                            (
+                                self: super:
+                                let
+                                    config = (self.config.nixpkgs.config or pkgsConfig);
+                                in
+                                {
+                                    pkgsStable = importPkgs (inputs.nixpkgs-stable or inputs.nixpkgs) config;
+                                    pkgsUnstable = importPkgs (inputs.nixpkgs-unstable or inputs.nixpkgs) config;
+                                    pkgsMaster = importPkgs (inputs.nixpkgs-master or inputs.nixpkgs) config;
+                                }
+                            )
                         ];
                     }
                 ];
