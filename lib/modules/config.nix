@@ -27,7 +27,7 @@ in
         with nullable args {
             modules = [ ];
             specialArgs = { };
-            hostname = builtins.baseNameOf flake;
+            hostname = baseNameOf flake;
         };
         {
             ${hostname} = inputs.nixpkgs.lib.nixosSystem {
