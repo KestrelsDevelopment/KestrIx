@@ -100,8 +100,13 @@ in
         );
 
     tagged =
+        let
+            flatten = lib.flatten;
+            contains = list: item: lib.any (element: element == item) list;
+            where =
+                attrs: conditionTrueFor:
+                lib.mapAttrsToList (name: value: if (conditionTrueFor name) then value else [ ]) attrs;
+        in
         args@{ ... }:
-        lib.flatten (
-            lib.mapAttrsToList (name: value: lib.optional (lib.any (elm: elm == name) tags) value) args
-        );
+        flatten (where args (name: contains tags name));
 }
