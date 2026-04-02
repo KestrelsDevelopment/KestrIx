@@ -24,6 +24,7 @@
                     flake,
                     src ? null,
                     user ? null,
+                    tags ? null,
                     ...
                 }:
                 (import ./lib {
@@ -33,6 +34,7 @@
                         flake
                         src
                         user
+                        tags
                         ;
                 });
         in
@@ -48,6 +50,7 @@
                     flake,
                     src ? null,
                     user ? null,
+                    tags ? null,
                     modules ? null,
                     specialArgs ? null,
                     hostname ? null,
@@ -61,6 +64,7 @@
                             flake
                             src
                             user
+                            tags
                             ;
                     };
                 in

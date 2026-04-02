@@ -4,6 +4,7 @@
     lib,
     hm,
     user,
+    tags,
     flake,
     src,
     nullable,
@@ -98,5 +99,7 @@ in
 
     tagged =
         args@{ ... }:
-        lib.flatten (lib.mapAttrsToList (name: value: lib.optional (name == user) value) args);
+        lib.flatten (
+            lib.mapAttrsToList (name: value: lib.optional (lib.any (elm: elm == name) tags) value) args
+        );
 }

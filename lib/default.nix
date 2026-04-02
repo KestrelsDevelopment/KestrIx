@@ -15,6 +15,7 @@ in
 with nullable args {
     src = "/etc/nixos";
     user = "";
+    tags = [ ];
 };
 
 let
@@ -32,6 +33,7 @@ let
                     importModule
                     importModules
                     user
+                    tags
                     flake
                     src
                     ;
