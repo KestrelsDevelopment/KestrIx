@@ -95,4 +95,8 @@ in
         (lib.optional (user == "kes") kes)
         ++ (lib.optional (user == "annika") annika)
         ++ (lib.optional (user == "lexi") lexi);
+
+    tagged =
+        args@{ ... }:
+        lib.flatten (lib.mapAttrsToList (name: value: lib.optional (name == user) value) args);
 }

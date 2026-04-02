@@ -59,5 +59,6 @@ in
 {
     mkHome = exports.config.mkHome;
     userModules = exports.config.userModules;
+    tagged = exports.config.tagged;
 }
 // exports
