@@ -93,9 +93,11 @@ in
             lexi ? { },
             ...
         }:
-        (lib.optional (user == "kes") kes)
-        ++ (lib.optional (user == "annika") annika)
-        ++ (lib.optional (user == "lexi") lexi);
+        lib.warn "\"kestrix.config.userModules\" is deprecated" (
+            (lib.optional (user == "kes") kes)
+            ++ (lib.optional (user == "annika") annika)
+            ++ (lib.optional (user == "lexi") lexi)
+        );
 
     tagged =
         args@{ ... }:
