@@ -22,7 +22,7 @@ let
             inherit system config;
         };
 in
-{
+rec {
     mkConfig =
         args@{ kestrix, ... }:
         with nullable args {
@@ -109,4 +109,7 @@ in
         in
         args@{ ... }:
         flatten (where args (name: contains tags name));
+
+    taggedForUser =
+        attrs: tagged (lib.mapAttrs (name: value: { home-manager.users.${name}.imports = value; }) attrs);
 }
