@@ -107,16 +107,10 @@ rec {
             where =
                 attrs: conditionTrueFor:
                 lib.mapAttrsToList (name: value: if (conditionTrueFor name) then value else [ ]) attrs;
+            taggedForSystem = args@{ ... }: flatten (where args (name: contains tags name));
         in
-        args@{ ... }:
-        flatten (where args (name: contains tags name));
-
-    taggedForUser =
-        attrs: tagged (lib.mapAttrs (name: value: { home-manager.users.${name}.imports = value; }) attrs);
-
-    taggedHmOrSystem =
         attrs:
-        tagged (
+        taggedForSystem (
             lib.mapAttrs (
                 name: value:
                 lib.forEach value (
