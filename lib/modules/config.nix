@@ -119,7 +119,9 @@ rec {
         tagged (
             lib.mapAttrs (
                 name: value:
-                if lib.hasSuffix ".home.nix" value then { home-manager.users.${name}.imports = value; } else value
+                lib.forEach value (
+                    el: if lib.hasSuffix ".home.nix" el then { home-manager.users.${name}.imports = [ el ]; } else el
+                )
             ) attrs
         );
 }
