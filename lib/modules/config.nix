@@ -14,6 +14,7 @@
 let
     pkgsConfig = {
         allowUnfree = lib.mkForce true;
+        allowInsecurePredicate = lib.mkDefault (_: true);
     };
 
     importPkgs =
@@ -112,4 +113,13 @@ rec {
 
     taggedForUser =
         attrs: tagged (lib.mapAttrs (name: value: { home-manager.users.${name}.imports = value; }) attrs);
+
+    taggedHmOrSystem =
+        attrs:
+        tagged (
+            lib.mapAttrs (
+                name: value:
+                if lib.hasSuffix ".home.nix" value then { home-manager.users.${name}.imports = value; } else value
+            ) attrs
+        );
 }

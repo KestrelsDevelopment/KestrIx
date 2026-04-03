@@ -63,5 +63,6 @@ in
     userModules = exports.config.userModules;
     tagged = exports.config.tagged;
     taggedForUser = exports.config.taggedForUser;
+    taggedHmOrSystem = exports.config.taggedHmOrSystem;
 }
 // exports
