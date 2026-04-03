@@ -23,7 +23,7 @@ let
             inherit system config;
         };
 in
-rec {
+{
     mkConfig =
         args@{ kestrix, ... }:
         with nullable args {
@@ -44,7 +44,6 @@ rec {
                     kestrel = kestrix;
                 };
                 modules = modules ++ [
-                    (flake + "/device.nix")
                     (flake + "/hardware.nix")
                     (flake + "/state.nix")
                     inputs.home-manager.nixosModules.home-manager
