@@ -4,6 +4,7 @@
     lib,
     hm,
     user,
+    tags,
     flake,
     src,
     nullable,
@@ -13,6 +14,7 @@
 let
     pkgsConfig = {
         allowUnfree = lib.mkForce true;
+        allowInsecurePredicate = lib.mkDefault (_: true);
     };
 
     importPkgs =
@@ -42,7 +44,6 @@ in
                     kestrel = kestrix;
                 };
                 modules = modules ++ [
-                    (flake + "/device.nix")
                     (flake + "/hardware.nix")
                     (flake + "/state.nix")
                     inputs.home-manager.nixosModules.home-manager
@@ -92,7 +93,28 @@ in
             lexi ? { },
             ...
         }:
-        (lib.optional (user == "kes") kes)
-        ++ (lib.optional (user == "annika") annika)
-        ++ (lib.optional (user == "lexi") lexi);
+        lib.warn "\"kestrix.config.userModules\" is deprecated" (
+            (lib.optional (user == "kes") kes)
+            ++ (lib.optional (user == "annika") annika)
+            ++ (lib.optional (user == "lexi") lexi)
+        );
+
+    tagged =
+        let
+            flatten = lib.flatten;
+            contains = list: item: lib.any (element: element == item) list;
+            where =
+                attrs: conditionTrueFor:
+                lib.mapAttrsToList (name: value: if (conditionTrueFor name) then value else [ ]) attrs;
+            taggedForSystem = args@{ ... }: flatten (where args (name: contains tags name));
+        in
+        attrs:
+        taggedForSystem (
+            lib.mapAttrs (
+                name: value:
+                lib.forEach value (
+                    el: if lib.hasSuffix ".home.nix" el then { home-manager.users.${name}.imports = [ el ]; } else el
+                )
+            ) attrs
+        );
 }
