@@ -7,10 +7,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1781365335,
-        "narHash": "sha256-zqDBhXMzfbdlO7F2bGHe7MOtB3xngd/+4ieMHDC+ZXo=",
+        "lastModified": 1781497404,
+        "narHash": "sha256-9GAF8sSsnkyCVCWkomXR0T+zdSxyUlfPt6neQidimdg=",
         "ref": "master",
-        "rev": "5b6f5733726a1b2ccafb5dec6ac4ca7299fad66c",
+        "rev": "1285cd3d6882a9847f2d56ed5541b3350c8a6162",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/nix-community/home-manager.git"
@@ -41,10 +41,10 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1781426292,
-        "narHash": "sha256-vn/9aAcMlWBjvmTLU+KnjNpiI2j63NIT1IZHtSJm8ow=",
+        "lastModified": 1781520026,
+        "narHash": "sha256-LAPtYY/rWTFPnKWY8MSo5qnIpObnEZiPketrCoiwHs4=",
         "ref": "master",
-        "rev": "8254aaa4635a186c930ab3a5197601d7d05e918e",
+        "rev": "f44323e2c6c457bb6ef95cdb6a4383233360315e",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/NixOS/nixpkgs.git"
