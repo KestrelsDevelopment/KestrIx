@@ -42,6 +42,7 @@ in
                         hm
                         ;
                     kestrel = kestrix;
+                    flake = lib.debug.traceVal flake;
                 };
                 modules = modules ++ [
                     (flake + "/hardware.nix")
