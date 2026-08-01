@@ -18,11 +18,14 @@ in
 
         version = "${version}-${revision}";
 
+        nativeBuildInputs = [
+            super.copyDesktopItems
+        ];
+
         desktopItems = [
             (super.makeDesktopItem {
                 name = "GitButler";
                 exec = "gitbutler-bin %U";
-                icon = "drawio";
                 desktopName = "gitbutler";
                 comment = "GitButler";
                 categories = [ "Graphics" ];
