@@ -32,5 +32,10 @@ in
                 startupWMClass = "gitbutler";
             })
         ];
+
+        extraInstallCommands = ''
+            # Force copyDesktopItems to run inside wrapType2's custom build script
+            copyDesktopItems
+        '';
     };
 }
