@@ -7,7 +7,7 @@ let
 
     srcArchive = super.fetchzip {
         url = "https://releases.gitbutler.com/releases/release/${version}-${revision}/linux/x86_64/GitButler_${version}_amd64.AppImage.tar.gz";
-        sha256 = "01marw05sp9p5z1kgi6ysnhnhcv9w5jx2qfjjznj54wcpfgxm0n9";
+        sha256 = "1v5yzgi7p6hs89axlvsa86rg65b6gfi0ksvf404cgsrz85xii57j";
     };
 
     src = "${srcArchive}/GitButler_${version}_amd64.AppImage";
@@ -17,10 +17,5 @@ in
         inherit pname src;
 
         version = "${version}-${revision}";
-
-        # extraPkgs =
-        #     pkgs: with pkgs; [
-        #         icu
-        #     ];
     };
 }
