@@ -17,5 +17,17 @@ in
         inherit pname src;
 
         version = "${version}-${revision}";
+
+        desktopItems = [
+            (super.makeDesktopItem {
+                name = "GitButler";
+                exec = "gitbutler-bin %U";
+                icon = "drawio";
+                desktopName = "gitbutler";
+                comment = "GitButler";
+                categories = [ "Graphics" ];
+                startupWMClass = "gitbutler";
+            })
+        ];
     };
 }
