@@ -34,7 +34,7 @@ in
                 icon = "gitbutler";
                 desktopName = "GitButler";
                 comment = "Git client";
-                categories = [ "Utilities" ];
+                categories = [ "Utility" ];
                 startupWMClass = "gitbutler";
             })
         ];
