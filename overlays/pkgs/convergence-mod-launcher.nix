@@ -9,7 +9,7 @@ let
         sha256 = "0r6ghqkbr62qicp5dq9hqrlkjbk9g5jq065fanlaqi27ixkjnnfq";
     };
 
-    icon = ../assets/convergence-mod-launcher.png
+    icon = ../assets/convergence-mod-launcher.png;
 in
 {
     convergence-mod-launcher = super.appimageTools.wrapType2 {
