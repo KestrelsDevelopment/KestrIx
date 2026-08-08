@@ -1,6 +1,6 @@
 {
     nixpkgs.overlays = [
-        (import ./pkgs/gitbutler-bin.nix)
-        (import ./pkgs/convergence-mod-launcher.nix)
+        ./pkgs/gitbutler-bin.nix
+        ./pkgs/convergence-mod-launcher.nix
     ];
 }

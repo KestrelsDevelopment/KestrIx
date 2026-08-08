@@ -31,7 +31,7 @@ in
                 icon = "convergence-mod-launcher";
                 desktopName = "ELDEN RING - The Convergence";
                 comment = "The Convergence mod for ELDEN RING";
-                categories = [ "Gaming" ];
+                categories = [ "Game" ];
                 startupWMClass = "convergence-mod-launcher";
             })
         ];
