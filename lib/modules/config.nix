@@ -64,7 +64,7 @@ in
                         };
 
                         nixpkgs.overlays = [
-                            (import ../../overlays/overlays.nix)
+                            (import ../../overlays/overlays.nix).default
                             (
                                 self: super:
                                 let
